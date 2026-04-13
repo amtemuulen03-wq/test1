@@ -1,15 +1,23 @@
 from fastapi import FastAPI
-import uvicorn
+from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.get("/")
-def root():
-    return {"status": "ok"}
+class DataModel(BaseModel):
+    name: str
+    value: str
+    email: str = None
+
+@app.post("/api/receive")
+def receive_data(data: DataModel):
+    # Your data is here
+    print(f"Received: {data.name}, {data.value}")
+    return {
+        "status": "success",
+        "received": data.dict(),
+        "message": "Data received and ready for Dataverse"
+    }
 
 @app.get("/api/test")
-def test(data: str = ""):
-    return {"received": data}
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+def test():
+    return {"status": "working"}
