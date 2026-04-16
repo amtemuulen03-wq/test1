@@ -12,7 +12,7 @@ class DataModel(BaseModel):
 # Load Excel file when app starts
 def load_excel_data():
     try:
-        df = pd.read_excel('posts_second_3000.xlsx')  # Change 'data.xlsx' to your filename
+        df = pd.read_excel('posts_injection.xlsx')  # Change 'data.xlsx' to your filename
         return df.to_dict(orient='records')
     except Exception as e:
         return {"error": str(e)}
